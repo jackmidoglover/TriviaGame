@@ -4,13 +4,13 @@ body {
 footer, header, #gameContainer {
     background-color: #ffff;
     margin-bottom: 10px;
-    text-align: center;
+    /* text-align: center; */
 }
 #answers {
     background-color: red;
     overflow: auto;
     padding-top: 15px;
-    text-align: left;
+    /* text-align: left; */
 }
 #question{
     background-color: blue;
@@ -26,3 +26,7 @@ footer, header{
     height: 100px; 
     padding: 40px;
 }
+/* input[type="radio"]{
+    float:left;
+    vertical-align: middle;
+    } */
