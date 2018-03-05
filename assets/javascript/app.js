@@ -112,8 +112,9 @@ ten : {
 }
 var rights = 0;
 var wrongs = 0;
+var unanswered = 0;
 var timeOut = 0;
-var gameTimer = 16;
+var gameTimer = 5;
 var deck = Object.keys(triviaCard);
 var index = 0;
 var deckIndex = deck[index];
@@ -124,7 +125,6 @@ var isAnswered = false;
 $(document).ready(function(){
 
 function rightAnswer() {
-    console.log(deckIndex);
     deckIndex = deck[index];
     rights++;
     var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].right)
@@ -142,17 +142,27 @@ function wrongAnswer() {
     $("#timer").empty();
     index++;
 }
+function noAnswer(){
+    index++;
+    unanswered++;
+    clearCard();
+    $("#question").html("Choked, eh?");
+    $("#answers").html("<img class='gif' src='./assets/images/gendrychoked.gif'>")
+    $("#timer").empty();
+    stop();    
+    console.log(unanswered);
+}
 // primary game function, allows user to select answers and behaves accordingly
 var choosing = function(){
     $("input").on("click", function() {
         var choice = $(this);
         console.log(choice);
 
+
         if (choice.is("#c")) {
             clearCard();
             rightAnswer();
             isAnswered = true;
-            console.log("rights" + rights);
             if (isAnswered) {
                 deckIndex = deck[index];
                 setTimeout(clearCard, 5000)
@@ -167,7 +177,6 @@ var choosing = function(){
             clearCard();
             wrongAnswer();
             isAnswered = true;
-            console.log("wrongs" + wrongs);
             if (isAnswered) {
                 deckIndex = deck[index];
                 setTimeout(clearCard, 5000)
@@ -191,9 +200,18 @@ intervalID = setInterval(decrement, 1000);
         $("#timer").html("<h3>" + gameTimer + "</h3>");
         if (gameTimer === 0) {
             stop();
+            noAnswer();
+            console.log("Times up!")
+            if (!isAnswered) {
+                deckIndex= deck[index];
+                setTimeout(clearCard, 5000)
+                setTimeout(flashcard, 6000);
+                setTimeout(choosing, 6000);
+            }
+            }
         }
     }
-}
+
 //function that stops the above timer
 function stop() {
     clearInterval(intervalID);
