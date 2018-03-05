@@ -7,6 +7,7 @@
     <title>Game of Thrones Trivia</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/stickyfooter.css">
     <script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -15,14 +16,14 @@
 
 </head>
 <body>
-            <header class="container-fluid">
+            <header class="container-fluid text-center">
                 Game of Thrones Trivia
             </header>
     <main class="container-fluid">
         <div class="row">
             <div class="col-xs-8 col-md-8 col-lg-8 col-xs-offset-2 col-md-offset-2 col-lg-offset-2" id="gameContainer">
             <div class="row">
-                <div class="col-sm-12" id="question">
+                <div class="col-sm-12 text-center" id="question">
                     Question
                 </div>
             </div>
@@ -33,6 +34,9 @@
  
                     </div>
                     </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4 text-center" id="timer">30</div>
                 </div>
             </div>
         </div>

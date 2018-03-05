@@ -1,6 +1,10 @@
 body {
     background-color: #A9A6D5;
 }
+main, #gameContainer { 
+    overflow: auto;
+    margin-bottom: 20px;
+}
 footer, header, #gameContainer {
     background-color: #ffff;
     margin-bottom: 10px;
@@ -19,14 +23,20 @@ footer, header, #gameContainer {
     font-size: 30px;
     padding-top: 20px;
 }
-#gameContainer{
-    height: 500px;
-}
+
 footer, header{
     height: 100px; 
     padding: 40px;
 }
-/* input[type="radio"]{
-    float:left;
-    vertical-align: middle;
-    } */
+
+.thumbnail {
+    height: 100px;
+    width: 100px;
+}
+label {
+    width: 300px;
+}
+
+.gif {
+    margin: 0 13%;
+}
