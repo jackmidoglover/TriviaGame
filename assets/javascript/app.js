@@ -46,7 +46,7 @@ four : {
 five : {
     right: "./assets/images/tyriondance.gif",
     rightText: "Aww yeah, you're on a roll!",
-    wrong: "./assets/images/cersei.gif",
+    wrong: "./assets/images/elyriasand.gif",
     wrongText: "Why can't you get anything right?",
     question: "Which of these names is not a surname for a bastard?",
     c: "Graves",
@@ -67,7 +67,7 @@ six : {
 },
 seven : {
     right: "./assets/images/sandor.gif",
-    rightText: "That's right.",
+    rightText: "That's right. The Hound ain't afraid of no STDs.",
     wrong: "./assets/images/burningblade.gif",
     wrongText: "You about to <b>be</b> on fire, bitch",
     question: "What is Sandor Clegane's greatest fear?",
@@ -77,8 +77,8 @@ seven : {
     b: "Drowning",
 },
 eight : {
-    right: "./assets/images/tyriondance.gif",
-    rightText: "Yeayuh!",
+    right: "./assets/images/jaimenice.gif",
+    rightText: "Golden.",
     wrong: "./assets/images/cersei.gif",
     wrongText: "Come on, seriously?",
     question: "Which kingdom do the Lannisters rule?",
@@ -90,8 +90,8 @@ eight : {
 nine : {
     right: "./assets/images/dany-thumbsup.gif",
     rightText: "You got it!",
-    wrong: "./assets/images/source.gif",
-    wrongText: "WHY?!",
+    wrong: "./assets/images/moondoor.gif",
+    wrongText: "MAKE THEM FLY!!",
     question: "Which of these is the sigil of House Arryn?",
     a: "<img class= 'img thumbnail' src='./assets/images/sigila.png'>",
     b: "<img class= 'img thumbnail' src='./assets/images/sigilb.png'>",
@@ -106,33 +106,44 @@ ten : {
     question: "Where was Deanerys Targaryen born?",
     a: "King's Landing",
     b: "Harrenhal",
-    c: "Storm's End",
-    d: "Dragonstone",
+    d: "Storm's End",
+    c: "Dragonstone",
 }
 }
 var rights = 0;
 var wrongs = 0;
 var timeOut = 0;
-var gameTimer = 15;
+var gameTimer = 16;
 var deck = Object.keys(triviaCard);
 var index = 0;
 var deckIndex = deck[index];
 var intervalID;
+var isAnswered = false;
 
 
 $(document).ready(function(){
 
 function rightAnswer() {
     console.log(deckIndex);
+    deckIndex = deck[index];
     rights++;
     var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].right)
     $("#question").html(triviaCard[deckIndex].rightText);
     $("#answers").append(img);
+    $("#timer").empty();
     index++;
     }    
+function wrongAnswer() {
+    deckIndex = deck[index];
+    wrongs++;
+    var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].wrong)
+    $("#question").html(triviaCard[deckIndex].wrongText);
+    $("#answers").append(img);
+    $("#timer").empty();
+    index++;
+}
 // primary game function, allows user to select answers and behaves accordingly
 var choosing = function(){
-
     $("input").on("click", function() {
         var choice = $(this);
         console.log(choice);
@@ -140,15 +151,35 @@ var choosing = function(){
         if (choice.is("#c")) {
             clearCard();
             rightAnswer();
-            setTimeout(flashcard(triviaCard[deckIndex]), 5000);
-            console.log("rights:" + rights);
+            isAnswered = true;
+            console.log("rights" + rights);
+            if (isAnswered) {
+                deckIndex = deck[index];
+                setTimeout(clearCard, 5000)
+                setTimeout(flashcard, 6000);
+                setTimeout(choosing, 6000);
+                console.log(deckIndex);
+                console.log(index);
+                stop();
+            }
         }
         else {
-            wrongs++;
-            console.log("wrongs:" + wrongs);
+            clearCard();
+            wrongAnswer();
+            isAnswered = true;
+            console.log("wrongs" + wrongs);
+            if (isAnswered) {
+                deckIndex = deck[index];
+                setTimeout(clearCard, 5000)
+                setTimeout(flashcard, 6000);
+                setTimeout(choosing, 6000);
+                console.log(deckIndex);
+                console.log(index);
+                stop();    
         }
-    });
-}
+    }
+})
+    }
 
 
 // function that runs the timer for each card
@@ -166,20 +197,24 @@ intervalID = setInterval(decrement, 1000);
 //function that stops the above timer
 function stop() {
     clearInterval(intervalID);
+    gameTimer = 16;
 }
 
 
 
 //this function pushes the "card" object (one - ten) to the appropriate space in the DOM
-function flashcard(card) {
+function flashcard() {
     //local variables
     var questionText = "";
-    var tfValue = Object.keys(card).slice(5);
-    var cardAnswers = Object.values(card).slice(5);
+    var tfValue = Object.keys(triviaCard[deckIndex]).slice(5);
+    var cardAnswers = Object.values(triviaCard[deckIndex]).slice(5);
+    isAnswered= false;
 
     //pushes the first property of the card object to the question div
-    questionText += card.question;
+    questionText += triviaCard[deckIndex].question;
     $("#question").html(questionText);
+    console.log(deckIndex);
+
 
     // dynamically pushes the remaining properties of object to the answers div with values used for later game function
     for (i = 0; i < cardAnswers.length; i++) {
@@ -197,16 +232,19 @@ function flashcard(card) {
             );
         console.log(cardAnswers[i]);
         $("#answers").append("<br>");
-        timer();
-        choosing();
-    }    
+    }
+    timer();    
 }
 // clears #question and #answers
     function clearCard() {
-        $("#question").html(" ");
-        $("#answers").html(" ");
+        $("#question").empty();
+        $("#answers").empty();
     }
 flashcard(triviaCard[deckIndex]);
+console.log(index);
+console.log(deck);
+choosing();
 
 
-});
+
+})

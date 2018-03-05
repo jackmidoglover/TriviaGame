@@ -11,13 +11,11 @@ footer, header, #gameContainer {
     /* text-align: center; */
 }
 #answers {
-    background-color: red;
     overflow: auto;
     padding-top: 15px;
     /* text-align: left; */
 }
 #question{
-    background-color: blue;
     height: 100px;
     overflow: auto;
     font-size: 30px;
@@ -26,7 +24,12 @@ footer, header, #gameContainer {
 
 footer, header{
     height: 100px; 
+}
+footer { 
     padding: 40px;
+}
+header {
+    padding: 6px;
 }
 
 .thumbnail {
@@ -38,5 +41,8 @@ label {
 }
 
 .gif {
-    margin: 0 13%;
+    height: 300px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
 }
