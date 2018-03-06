@@ -171,7 +171,7 @@ var choosing = function(){
             isAnswered = true;
             if (isAnswered) {
                 deckIndex = deck[index];
-                setTimeout(clearCard, 5000)
+                setTimeout(clearCard, 6000)
                 setTimeout(flashcard, 6000);
                 setTimeout(choosing, 6000);
                 stop();    
@@ -226,7 +226,7 @@ intervalID = setInterval(decrement, 1000);
             console.log("Times up!")
             if (!isAnswered) {
                 deckIndex= deck[index];
-                setTimeout(clearCard, 5000)
+                setTimeout(clearCard, 6000)
                 setTimeout(flashcard, 6000);
                 setTimeout(choosing, 6000);
             }
