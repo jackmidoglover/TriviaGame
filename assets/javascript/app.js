@@ -1,9 +1,9 @@
 var triviaCard = {
  one : {
-     right: "./assets/images/johnghost.gif",
-     rightText: "You're right! Here's a puppy.",
-     wrong: "./assets/images/knownothing.gif",
-     wrongText: "You know nothing, John Snow.",
+    right: "./assets/images/johnghost.gif",
+    rightText: "You're right! Here's a puppy.",
+    wrong: "./assets/images/knownothing.gif",
+    wrongText: "You know nothing, Jon Snow.",
     question: "Which of these houses is not from the North?",
     a: "Manderly",
     b: "Glover",
@@ -15,7 +15,7 @@ two : {
     rightText: "Correct!",
     wrong: "./assets/images/samno.gif",
     wrongText: "No.",
-    question: "What was the name of the maester at winterfell?",
+    question: "What was the name of the maester at Winterfell?",
     c: "Luwin",
     d: "Aemon",
     b: "Pycelle",
@@ -69,7 +69,7 @@ seven : {
     right: "./assets/images/sandor.gif",
     rightText: "That's right. The Hound ain't afraid of no STDs.",
     wrong: "./assets/images/burningblade.gif",
-    wrongText: "You about to <b>be</b> on fire, bitch",
+    wrongText: "You're <b>fire</b>d.",
     question: "What is Sandor Clegane's greatest fear?",
     a: "The White Walkers",
     d: "STDs",
@@ -91,7 +91,7 @@ nine : {
     right: "./assets/images/dany-thumbsup.gif",
     rightText: "You got it!",
     wrong: "./assets/images/moondoor.gif",
-    wrongText: "MAKE THEM FLY!!",
+    wrongText: "TIME TO FLY!!",
     question: "Which of these is the sigil of House Arryn?",
     a: "<img class= 'img thumbnail' src='./assets/images/sigila.png'>",
     b: "<img class= 'img thumbnail' src='./assets/images/sigilb.png'>",
@@ -103,73 +103,65 @@ ten : {
     rightText: "You are on fire!",
     wrong: "./assets/images/dothrakifail.gif",
     wrongText: "Fail!",
-    question: "Where was Deanerys Targaryen born?",
+    question: "Where was Daenerys Targaryen born?",
     a: "King's Landing",
     b: "Harrenhal",
     d: "Storm's End",
     c: "Dragonstone",
 }
 }
+// global game variables
 var rights = 0;
 var wrongs = 0;
 var unanswered = 0;
-var timeOut = 0;
-var gameTimer = 5;
+var gameTimer = 16;
 var deck = Object.keys(triviaCard);
 var index = 0;
 var deckIndex = deck[index];
 var intervalID;
 var isAnswered = false;
+var themeSong = document.createElement('audio');
+var failSound = document.createElement('audio');
+var winSound = document.createElement('audio');
+themeSong.setAttribute('src' ,'assets/sounds/gottheme.mp3');
+failSound.setAttribute('src', 'assets/sounds/shame.mp3');
+winSound.setAttribute('src', 'assets/sounds/KingInTheNorth.mp3');
 
 
 $(document).ready(function(){
 
-function rightAnswer() {
+// game start function
+function startGame() {
+    index = 0;
+    rights = 0;
+    wrongs = 0;
+    unanswered = 0;
+    gameTimer = 16;
     deckIndex = deck[index];
-    rights++;
-    var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].right)
-    $("#question").html(triviaCard[deckIndex].rightText);
-    $("#answers").append(img);
-    $("#timer").empty();
-    index++;
-    }    
-function wrongAnswer() {
-    deckIndex = deck[index];
-    wrongs++;
-    var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].wrong)
-    $("#question").html(triviaCard[deckIndex].wrongText);
-    $("#answers").append(img);
-    $("#timer").empty();
-    index++;
-}
-function noAnswer(){
-    index++;
-    unanswered++;
+    isAnswered = false;
+    $("#answers").removeClass("text-center");
     clearCard();
-    $("#question").html("Choked, eh?");
-    $("#answers").html("<img class='gif' src='./assets/images/gendrychoked.gif'>")
-    $("#timer").empty();
-    stop();    
-    console.log(unanswered);
+    flashcard(triviaCard[deckIndex]);
+    choosing();
+    themeSong.load();
+    themeSong.play();
+    failSound.pause();
+    winSound.pause();
 }
-// primary game function, allows user to select answers and behaves accordingly
+
+// primary game function, allows user to choose answers & reacts
 var choosing = function(){
     $("input").on("click", function() {
         var choice = $(this);
-        console.log(choice);
-
-
         if (choice.is("#c")) {
             clearCard();
             rightAnswer();
             isAnswered = true;
             if (isAnswered) {
                 deckIndex = deck[index];
-                setTimeout(clearCard, 5000)
+                setTimeout(clearCard, 6000)
                 setTimeout(flashcard, 6000);
                 setTimeout(choosing, 6000);
-                console.log(deckIndex);
-                console.log(index);
                 stop();
             }
         }
@@ -182,12 +174,42 @@ var choosing = function(){
                 setTimeout(clearCard, 5000)
                 setTimeout(flashcard, 6000);
                 setTimeout(choosing, 6000);
-                console.log(deckIndex);
-                console.log(index);
                 stop();    
         }
     }
 })
+    }
+
+// 3 reactions for the choosing & timer function: right, wrong, unanswered
+function rightAnswer() {
+    deckIndex = deck[index];
+    rights++;
+    var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].right)
+    $("#question").html(triviaCard[deckIndex].rightText);
+    $("#answers").append(img);
+    $("#timer").empty();
+    index++;
+    }
+
+function wrongAnswer() {
+    deckIndex = deck[index];
+    wrongs++;
+    var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].wrong)
+    $("#question").html(triviaCard[deckIndex].wrongText);
+    $("#answers").append(img);
+    $("#timer").empty();
+    index++;
+    }
+
+function noAnswer(){
+    index++;
+    unanswered++;
+    clearCard();
+    $("#question").html("Choked, eh?");
+    $("#answers").html("<img class='gif' src='./assets/images/gendrychoked.gif'>")
+    $("#timer").empty();
+    stop();    
+    console.log(unanswered);
     }
 
 
@@ -212,7 +234,7 @@ intervalID = setInterval(decrement, 1000);
         }
     }
 
-//function that stops the above timer
+//function that stops the timer
 function stop() {
     clearInterval(intervalID);
     gameTimer = 16;
@@ -220,21 +242,17 @@ function stop() {
 
 
 
-//this function pushes the "card" object (one - ten) to the appropriate space in the DOM
+// this function pushes the "card" objects (one - ten) 
+// to #answers and #question
+
 function flashcard() {
-    //local variables
-    var questionText = "";
+    if (index <= 9) {
     var tfValue = Object.keys(triviaCard[deckIndex]).slice(5);
     var cardAnswers = Object.values(triviaCard[deckIndex]).slice(5);
     isAnswered= false;
-
-    //pushes the first property of the card object to the question div
-    questionText += triviaCard[deckIndex].question;
-    $("#question").html(questionText);
-    console.log(deckIndex);
-
-
-    // dynamically pushes the remaining properties of object to the answers div with values used for later game function
+//pushes the first property of the card object to #question
+    $("#question").html(triviaCard[deckIndex].question);
+// dynamically pushes the remaining properties of object to #answers
     for (i = 0; i < cardAnswers.length; i++) {
         var answerButton = $("<input>")
         .addClass("radio")
@@ -248,21 +266,64 @@ function flashcard() {
                 .html(cardAnswers[i])
                 )
             );
-        console.log(cardAnswers[i]);
         $("#answers").append("<br>");
+        }
+        timer();  
     }
-    timer();    
+    else {
+       endGame();
+       stop();
+    }
+ 
+    console.log(index); 
 }
+
 // clears #question and #answers
-    function clearCard() {
-        $("#question").empty();
-        $("#answers").empty();
+function clearCard() {
+    $("#question").empty();
+    $("#answers").empty();
     }
-flashcard(triviaCard[deckIndex]);
-console.log(index);
-console.log(deck);
-choosing();
+// displays results at the end of the game
+function endGame() {
+        var resultimg;
+        themeSong.pause();
+        var button = $("<button>")
+        .addClass("btn btn-sm btn-primary startGame").text("Play Again!");
+        var totalScore = rights / 10 * 100;
+        if (rights >= 7) {
+        $("#question").html("You win!");
+        winSound.load();
+        winSound.play();
+        resultimg = "./assets/images/dragonwin.gif"
+        }
+        else {
+        $("#question").html("Boo! Read the books, loser!")
+        failSound.load();
+        failSound.play();
+        resultimg = "./assets/images/lose.gif"
+        }
+        $("#answers").addClass("text-center").html(`
+        <p> 
+            <img src=` + resultimg + `>
+        </p>
+        <p>
+            <h4> You got ` + rights + ` answers right! </h4>
+        </p>
+        <p>
+            <h4> You got ` + wrongs + ` answers wrong! </h4>
+        </p>
+        <p>
+            <h4> You left ` + unanswered + ` questions unanswered. </h4>
+        </p>
+        <p> 
+        <h3> Your total score was ` + totalScore + `% </h3>
+        </p>
+        `)
+        $("#timer").append(button)
+    }
 
-
+$(document).on("click", ".startGame", function(){
+    startGame();
+});
 
 })

@@ -1,35 +1,58 @@
 body {
-    background-color: #A9A6D5;
+    background-image: url("../images/gotbg.png"),
+    linear-gradient(#c25115, white, #c25115);
+    color: #704214;
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 25px;
 }
 main, #gameContainer { 
-    overflow: auto;
-    margin-bottom: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-footer, header, #gameContainer {
-    background-color: #ffff;
-    margin-bottom: 10px;
-    /* text-align: center; */
+main { 
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+#gameContainer {
+    background-color:#f3eddd;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    border-radius: 5px;
 }
 #answers {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding-top: 15px;
-    /* text-align: left; */
 }
 #question{
-    height: 100px;
-    overflow: auto;
-    font-size: 30px;
+    overflow-y: auto;
+    font-size: 50px;
     padding-top: 20px;
+    font-family: 'Amita', cursive;
+    color: #42270C;
 }
 
-footer, header{
-    height: 100px; 
-}
-footer { 
-    padding: 40px;
-}
 header {
-    padding: 6px;
+    background: linear-gradient(rgba(194,81,21,1), rgba(255,255,255, .5) 91%, rgba(255,255,255, .0));
+}
+footer {
+    background: linear-gradient(rgba(255,255,255, .5) 30%, rgba(194,81,21,1));
+    height: 100px;
+    padding-top: 20px;
+    font-size: 15px;
+}
+h2 {
+    font-family: 'Merienda One', cursive;
+    font-size: 86px;
+    position: relative;
+    top: -38px;
+    left: 44%;
+    color: #1714CC;
+    text-shadow: 2px 2px #fbf188, -2px -2px #fbf188, 4px 4px #C25115, -4px -4px #C25115;
+    margin: -11px;
+    width: 50%;
 }
 
 .thumbnail {
@@ -45,4 +68,18 @@ label {
     display: block;
     margin: 0 auto;
     margin-bottom: 20px;
+}
+.startGame {
+    margin: 15px 0;
+}
+.radio {
+    margin: 0;
+}
+a { 
+    text-decoration: none;
+    color: #42270C;
+}
+a:hover {
+    text-decoration: none;
+    color: #1714CC;
 }
