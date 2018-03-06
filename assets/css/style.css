@@ -39,7 +39,7 @@ header {
 }
 footer {
     background: linear-gradient(rgba(255,255,255, .5) 30%, rgba(194,81,21,1));
-    height: 100px;
+    height: auto;
     padding-top: 20px;
     font-size: 15px;
 }
