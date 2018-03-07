@@ -10,8 +10,8 @@ The game's primary purpose is to utilize timers to dictate how the game's jquery
 practice in learning how to use and call nested objects, and how to create HTML elements dynamically.
 
 ## Ways to contribute
-- [] Editting HTML and CSS to create a mobile responsive design
-- [] Editting the js for concision
+- [ ] Editting HTML and CSS to create a mobile responsive design
+- [ ] Editting the js for concision
 
 ## Contributor
 If you'd like to know more about the project, message jackmidoglover, the project's author. 
