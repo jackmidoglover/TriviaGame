@@ -132,6 +132,7 @@ $(document).ready(function(){
 
 // game start function
 function startGame() {
+//variables
     index = 0;
     rights = 0;
     wrongs = 0;
@@ -139,10 +140,12 @@ function startGame() {
     gameTimer = 16;
     deckIndex = deck[index];
     isAnswered = false;
+//clears card, removes centered calls game functions
     $("#answers").removeClass("text-center");
     clearCard();
     flashcard(triviaCard[deckIndex]);
     choosing();
+//loads music
     themeSong.load();
     themeSong.play();
     failSound.pause();
@@ -151,12 +154,15 @@ function startGame() {
 
 // primary game function, allows user to choose answers & reacts
 var choosing = function(){
+    
     $("input").on("click", function() {
-        var choice = $(this);
-        if (choice.is("#c")) {
-            clearCard();
-            rightAnswer();
-            isAnswered = true;
+    
+    var choice = $(this);
+    
+    if (choice.is("#c")) {
+        clearCard();
+        rightAnswer();
+        isAnswered = true;
             if (isAnswered) {
                 deckIndex = deck[index];
                 setTimeout(clearCard, 6000)
@@ -165,20 +171,20 @@ var choosing = function(){
                 stop();
             }
         }
-        else {
-            clearCard();
-            wrongAnswer();
-            isAnswered = true;
+    else {
+        clearCard();
+        wrongAnswer();
+        isAnswered = true;
             if (isAnswered) {
                 deckIndex = deck[index];
                 setTimeout(clearCard, 6000)
                 setTimeout(flashcard, 6000);
                 setTimeout(choosing, 6000);
                 stop();    
+            }
         }
-    }
-})
-    }
+    })
+}
 
 // 3 reactions for the choosing & timer function: right, wrong, unanswered
 function rightAnswer() {
@@ -215,24 +221,28 @@ function noAnswer(){
 
 // function that runs the timer for each card
 function timer(x) {
-clearInterval(intervalID);
-intervalID = setInterval(decrement, 1000);
+
+    clearInterval(intervalID);
+    intervalID = setInterval(decrement, 1000);
+    
     function decrement() {
         gameTimer--;
         $("#timer").html("<h3>" + gameTimer + "</h3>");
+
         if (gameTimer === 0) {
             stop();
             noAnswer();
             console.log("Times up!")
+
             if (!isAnswered) {
                 deckIndex= deck[index];
                 setTimeout(clearCard, 6000)
                 setTimeout(flashcard, 6000);
                 setTimeout(choosing, 6000);
             }
-            }
         }
     }
+}
 
 //function that stops the timer
 function stop() {
@@ -240,24 +250,23 @@ function stop() {
     gameTimer = 16;
 }
 
-
-
-// this function pushes the "card" objects (one - ten) 
-// to #answers and #question
-
+// this function pushes the "card" objects to #answers and #question
 function flashcard() {
+
     if (index <= 9) {
-    var tfValue = Object.keys(triviaCard[deckIndex]).slice(5);
-    var cardAnswers = Object.values(triviaCard[deckIndex]).slice(5);
-    isAnswered= false;
+        var tfValue = Object.keys(triviaCard[deckIndex]).slice(5);
+        var cardAnswers = Object.values(triviaCard[deckIndex]).slice(5);
+        isAnswered= false;
+
 //pushes the first property of the card object to #question
-    $("#question").html(triviaCard[deckIndex].question);
+        $("#question").html(triviaCard[deckIndex].question);
+
 // dynamically pushes the remaining properties of object to #answers
-    for (i = 0; i < cardAnswers.length; i++) {
-        var answerButton = $("<input>")
-        .addClass("radio")
-        .attr({"id": tfValue[i], "name" : "choice", "type" : "radio"})
-        $("#answers").append(
+        for (i = 0; i < cardAnswers.length; i++) {
+            var answerButton = $("<input>")
+            .addClass("radio")
+            .attr({"id": tfValue[i], "name" : "choice", "type" : "radio"})
+            $("#answers").append(
             $("<div>").addClass("container radio")
             .append(answerButton)
                 .append(
@@ -266,16 +275,14 @@ function flashcard() {
                 .html(cardAnswers[i])
                 )
             );
-        $("#answers").append("<br>");
+            $("#answers").append("<br>");
         }
         timer();  
     }
     else {
-       endGame();
-       stop();
+        endGame();
+        stop();
     }
- 
-    console.log(index); 
 }
 
 // clears #question and #answers
@@ -283,44 +290,46 @@ function clearCard() {
     $("#question").empty();
     $("#answers").empty();
     }
+
 // displays results at the end of the game
 function endGame() {
-        var resultimg;
-        themeSong.pause();
-        var button = $("<button>")
+    var totalScore = rights / 10 * 100;
+    var resultimg;
+    var button = $("<button>")
         .addClass("btn btn-sm btn-primary startGame").text("Play Again!");
-        var totalScore = rights / 10 * 100;
+    themeSong.pause();
+
         if (rights >= 7) {
-        $("#question").html("You win!");
-        winSound.load();
-        winSound.play();
-        resultimg = "./assets/images/dragonwin.gif"
+            $("#question").html("You win!");
+            winSound.load();
+            winSound.play();
+            resultimg = "./assets/images/dragonwin.gif"
         }
         else {
-        $("#question").html("Boo! Read the books, loser!")
-        failSound.load();
-        failSound.play();
-        resultimg = "./assets/images/lose.gif"
+            $("#question").html("Boo! Read the books, loser!")
+            failSound.load();
+            failSound.play();
+            resultimg = "./assets/images/lose.gif"
         }
-        $("#answers").addClass("text-center").html(`
-        <p> 
-            <img src=` + resultimg + `>
-        </p>
-        <p>
-            <h4> You got ` + rights + ` answers right! </h4>
-        </p>
-        <p>
-            <h4> You got ` + wrongs + ` answers wrong! </h4>
-        </p>
-        <p>
-            <h4> You left ` + unanswered + ` questions unanswered. </h4>
-        </p>
-        <p> 
-        <h3> Your total score was ` + totalScore + `% </h3>
-        </p>
+    $("#answers").addClass("text-center").html(`
+            <p> 
+                <img src='${resultimg}'>
+            </p>
+            <p>
+                <h4> You got ` + rights + ` answers right! </h4>
+            </p>
+            <p>
+                <h4> You got ` + wrongs + ` answers wrong! </h4>
+            </p>
+            <p>
+                <h4> You left ` + unanswered + ` questions unanswered. </h4>
+            </p>
+            <p> 
+            <h3> Your total score was ` + totalScore + `% </h3>
+            </p>
         `)
         $("#timer").append(button)
-    }
+}
 
 $(document).on("click", ".startGame", function(){
     startGame();
