@@ -316,16 +316,16 @@ function endGame() {
                 <img src='${resultimg}'>
             </p>
             <p>
-                <h4> You got ` + rights + ` answers right! </h4>
+                <h4> You got ${rights} answers right! </h4>
             </p>
             <p>
-                <h4> You got ` + wrongs + ` answers wrong! </h4>
+                <h4> You got ${wrongs} answers wrong! </h4>
             </p>
             <p>
-                <h4> You left ` + unanswered + ` questions unanswered. </h4>
+                <h4> You left ${unanswered} questions unanswered. </h4>
             </p>
             <p> 
-            <h3> Your total score was ` + totalScore + `% </h3>
+            <h3> Your total score was ${totalScore}% </h3>
             </p>
         `)
         $("#timer").append(button)
