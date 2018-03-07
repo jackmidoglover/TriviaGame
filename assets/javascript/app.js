@@ -259,7 +259,7 @@ function flashcard() {
         isAnswered= false;
 
 //pushes the first property of the card object to #question
-        $("#question").html(triviaCard[deckIndex].question);
+        $("#question").html(`<p class="questionBorder">` + triviaCard[deckIndex].question + `</p>`);
 
 // dynamically pushes the remaining properties of object to #answers
         for (i = 0; i < cardAnswers.length; i++) {

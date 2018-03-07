@@ -33,6 +33,12 @@ main {
     font-family: 'Amita', cursive;
     color: #42270C;
 }
+.questionBorder {
+    border-bottom: 2px dotted #1714CC;
+    width: 75%;
+    display: block;
+    margin: 0 auto;
+}
 
 header {
     background: linear-gradient(rgba(194,81,21,1), rgba(255,255,255, .5) 91%, rgba(255,255,255, .0));
