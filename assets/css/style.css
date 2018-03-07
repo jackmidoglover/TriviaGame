@@ -27,14 +27,14 @@ main {
     padding-top: 15px;
 }
 #question{
-    overflow-y: auto;
+    height: auto;
     font-size: 50px;
     padding-top: 20px;
     font-family: 'Amita', cursive;
     color: #42270C;
 }
 .questionBorder {
-    border-bottom: 2px dotted #1714CC;
+    border-bottom: 2px dotted #00A8AD;
     width: 75%;
     display: block;
     margin: 0 auto;
@@ -56,8 +56,8 @@ h2 {
     position: relative;
     top: -38px;
     left: 44%;
-    color: #1714CC;
-    text-shadow: 2px 2px #fbf188, -2px -2px #fbf188, 4px 4px #C25115, -4px -4px #C25115;
+    color: #00A8AD;
+    text-shadow: 2px 2px #fbf188, -2px -2px #fbf188, 4px 4px #FF8A40, -4px -4px #FF8A40;
     margin: -11px;
     width: 50%;
 }
@@ -88,9 +88,13 @@ a {
 }
 a:hover {
     text-decoration: none;
-    color: #1714CC;
+    color: #00A8AD;
 }
 
 .blue {
-    color: #1714CC;
+    color: #00A8AD;
+}
+.btn-primary {
+    background-color: #00A8AD;
+    border: 1px solid #00A8AD;
 }

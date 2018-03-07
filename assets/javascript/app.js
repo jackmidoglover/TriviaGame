@@ -234,7 +234,6 @@ function timer(x) {
         if (gameTimer === 0) {
             stop();
             noAnswer();
-            console.log("Times up!")
 
             if (!isAnswered) {
                 deckIndex= deck[index];
@@ -336,5 +335,4 @@ function endGame() {
 $(document).on("click", ".startGame", function(){
     startGame();
 });
-
 })
