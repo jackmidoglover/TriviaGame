@@ -203,6 +203,7 @@ function wrongAnswer() {
     var img = $("<img>").addClass("gif").attr("src", triviaCard[deckIndex].wrong)
     $("#question").html(triviaCard[deckIndex].wrongText);
     $("#answers").append(img);
+    $("#answers").append("<p class='text-center'>The right answer was: " + triviaCard[deckIndex].c + "</p>");
     $("#timer").empty();
     index++;
     }
@@ -212,7 +213,8 @@ function noAnswer(){
     unanswered++;
     clearCard();
     $("#question").html("Choked, eh?");
-    $("#answers").html("<img class='gif' src='./assets/images/gendrychoked.gif'>")
+    $("#answers").append("<img class='gif' src='./assets/images/gendrychoked.gif'>")
+    $("#answers").append("<p class='text-center'>The right answer was: " + triviaCard[deckIndex].c + "</p>");    
     $("#timer").empty();
     stop();    
     console.log(unanswered);
