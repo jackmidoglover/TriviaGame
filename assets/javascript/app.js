@@ -254,7 +254,7 @@ function stop() {
 // this function pushes the "card" objects to #answers and #question
 function flashcard() {
 
-    if (index <= 9) {
+    if (index < deck.length) {
         var tfValue = Object.keys(triviaCard[deckIndex]).slice(5);
         var cardAnswers = Object.values(triviaCard[deckIndex]).slice(5);
         isAnswered= false;
